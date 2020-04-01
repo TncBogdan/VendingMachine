@@ -1,26 +1,32 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class VendingMachine {
+public class VendingMachine extends ReadyState{
 
+    private VendingMachine vendingMachine;
     private Item selectedItem;
     private int cash;
     private List<Item> items = new ArrayList<Item>();
-    private State state;
+    private ReadyState readyState;
 
     public VendingMachine() {
         fillItems();
-        state = new ReadyState(this);
+        readyState = new ReadyState(this);
     }
 
-    public void changeState(State state){
-        this.state = state;
+    public VendingMachine(VendingMachine vendingMachine) {
+
+        this.setVendingMachine(this.vendingMachine);
+    }
+
+    public void changeState(ReadyState readyState){
+        this.readyState = readyState;
     }
 
     public void start(){
-        state.collectCash();
-        state.dispenceItem();
-        state.dispenceChange();
+        readyState.collectCash();
+        readyState.dispenceItem();
+        readyState.dispenceChange();
     }
 
     public void fillItems(){
@@ -53,11 +59,19 @@ public class VendingMachine {
         this.items = item;
     }
 
-    public State getState() {
-        return state;
+    public ReadyState getReadyState() {
+        return readyState;
     }
 
-    public void setState(State state) {
-        this.state = state;
+    public void setReadyState(ReadyState readyState) {
+        this.readyState = readyState;
+    }
+
+    public VendingMachine getVendingMachine() {
+        return vendingMachine;
+    }
+
+    public void setVendingMachine(VendingMachine vendingMachine) {
+        this.vendingMachine = vendingMachine;
     }
 }
